@@ -24,6 +24,17 @@ class FinestraPrincipale(QMainWindow):
         self.ui.bt_mod_cerca.clicked.connect(self.cerca_per_nome_modifica)
         self.ui.bt_eliminare_cerca.clicked.connect(self.cerca_per_nome_elimina)
 
+        self.ui.bt_aggiorna_clienti.clicked.connect(self.mostra_clienti)
+        self.ui.bt_reg_registra_cliente.clicked.connect(self.registra_clienti)
+        self.ui.bt_eli_eliminare_cliente.clicked.connect(self.elimina_clienti)
+        self.ui.bt_mod_modifica_cliente.clicked.connect(self.modifica_clienti)
+        self.ui.bt_mod_cerca_cliente.clicked.connect(self.cerca_per_nome_modifica_cliente)
+        self.ui.bt_eliminare_cerca_cliente.clicked.connect(self.cerca_per_nome_elimina_cliente)
+
+        self.ui.bt_mod_cerca_prodotto_acquista.clicked.connect(self.cerca_per_nome_prodotto_acquista)
+        self.ui.bt_mod_cerca_cliente_acquista.clicked.connect(self.cerca_per_nome_cliente_acquista)
+        self.ui.bt_acq_acquista.clicked.connect(self.registra_acquisto)
+
         self.ui.bt_minimizzare.clicked.connect(self.control_bt_minimizzare)
         self.ui.bt_minimo.clicked.connect(self.control_bt_minimo)
         self.ui.bt_massimo.clicked.connect(self.control_bt_massimo)
@@ -46,12 +57,21 @@ class FinestraPrincipale(QMainWindow):
         self.ui.bt_database.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_database))
         self.ui.bt_registra.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_registra))
         self.ui.bt_modifica.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_modifica))
-        self.ui.bt_elimina.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_eliminar))
-        self.ui.bt_impostazioni.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_ajustes))
+        self.ui.bt_elimina.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_elimina))
+        self.ui.bt_clienti.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_cliente))
+        self.ui.bt_aziende.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_aziende))
+        self.ui.bt_aggiungi_cliente.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_aggiungi_cliente))
+        self.ui.bt_modifica_cliente.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_modifica_cliente))
+        self.ui.bt_elimina_cliente.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_elimina_cliente))
+        self.ui.bt_acquista.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_acquista))
 
         # Larghezza della colonna adattabile
         self.ui.tabella_elimina.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.ui.tabella_prodotti.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.tabella_elimina_cliente.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.tabella_clienti.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.tabella_elimina_azienda.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.tabella_aziende.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         # Imposta la pagina Database come pagina
         self.ui.stackedWidget.setCurrentWidget(self.ui.page_database)
@@ -205,6 +225,162 @@ class FinestraPrincipale(QMainWindow):
             self.basedidati.elimina_prodotti("'" + self.prodotto_da_eliminare + "'")
             self.ui.signal_elimina.setText('Prodotto Eliminato')
             self.ui.eliminare_cerca.setText('')
+
+    def mostra_clienti(self):  
+        clienti = self.basedidati.mostra_clienti()
+        i = len(clienti)
+        self.ui.tabella_clienti.setRowCount(i)
+        tablerow = 0
+        for row in clienti:
+            self.Id = row[0]
+            self.ui.tabella_clienti.setItem(tablerow,0,QtWidgets.QTableWidgetItem(str(row[0])))
+            self.ui.tabella_clienti.setItem(tablerow,1,QtWidgets.QTableWidgetItem(str(row[1])))
+            self.ui.tabella_clienti.setItem(tablerow,2,QtWidgets.QTableWidgetItem(str(row[2])))
+            self.ui.tabella_clienti.setItem(tablerow,3,QtWidgets.QTableWidgetItem(str(row[3])))
+            self.ui.tabella_clienti.setItem(tablerow,4,QtWidgets.QTableWidgetItem(str(row[4])))
+            self.ui.tabella_clienti.setItem(tablerow,5,QtWidgets.QTableWidgetItem(str(row[5])))
+            tablerow +=1
+            self.ui.signal_modifica_cliente.setText("")
+            self.ui.signal_registra_cliente.setText("")
+            self.ui.signal_elimina_cliente.setText("")
+
+    def registra_clienti(self):
+        codiceFiscale = self.ui.reg_codiceFiscale_cliente.text().upper()  
+        nome = self.ui.reg_nome_cliente.text().upper() 
+        cognome = self.ui.reg_cognome_cliente.text().upper() 
+        telefono = self.ui.reg_telefono_cliente.text().upper() 
+        dataDiNascita = self.ui.reg_dataDiNascitaCliente.text().upper()
+        prodottiAcquistati = 0
+        if codiceFiscale != '' and nome != '' and cognome != '' and telefono != '' and dataDiNascita != '' and prodottiAcquistati != '':
+            self.basedidati.inserisci_cliente(codiceFiscale, nome, cognome, telefono, dataDiNascita, prodottiAcquistati)
+            self.ui.signal_registra_cliente.setText('Clienti Registrati')
+            self.ui.reg_codiceFiscale_cliente.clear()
+            self.ui.reg_nome_cliente.clear()
+            self.ui.reg_cognome_cliente.clear()
+            self.ui.reg_telefono_cliente.clear()
+            self.ui.reg_dataDiNascitaCliente.clear()
+        else:
+            self.ui.signal_registra.setText('Ci sono spazi vuoti')
+
+    def cerca_per_nome_modifica_cliente(self):
+        codiceFiscale_cliente = self.ui.mod_cerca_cliente.text().upper() 
+        codiceFiscale_cliente = str("'" + codiceFiscale_cliente + "'")
+        self.cliente = self.basedidati.cerca_cliente(codiceFiscale_cliente)
+        if len(self.cliente) !=0:
+            self.ui.mod_codFiscale_cliente.setText(str(self.cliente[0][0]))
+            self.ui.mod_nome_cliente.setText(str(self.cliente[0][1]))
+            self.ui.mod_cognome_cliente.setText(str(self.cliente[0][2]))
+            self.ui.mod_telefono_cliente.setText(str(self.cliente[0][3]))
+            self.ui.mod_dataDiNascita_cliente.setText(str(self.cliente[0][4]))
+        else:
+            self.ui.signal_modifica_cliente.setText("NON ESISTE")
+
+    def modifica_clienti(self):
+        if self.cliente != '':
+            codiceFiscale = self.ui.mod_codFiscale_cliente.text().upper()  
+            nome = self.ui.mod_nome_cliente.text().upper() 
+            cognome = self.ui.mod_cognome_cliente.text().upper() 
+            telefono = self.ui.mod_telefono_cliente.text().upper() 
+            dataDiNascita = self.ui.mod_dataDiNascita_cliente.text().upper()
+            mod = self.basedidati.modifica_clienti(codiceFiscale, nome, cognome, telefono, dataDiNascita)
+            if mod == 1:
+                self.ui.signal_modifica.setText("MODIFICATO")                
+                self.ui.mod_codFiscale_cliente.clear()
+                self.ui.mod_nome_cliente.clear()
+                self.ui.mod_cognome_cliente.clear()
+                self.ui.mod_telefono_cliente.clear()                
+                self.ui.mod_dataDiNascita_cliente.clear()
+                self.ui.mod_cerca_cliente.setText('')
+            elif mod == 0:
+                self.ui.signal_modifica_cliente.setText("ERRORE")
+            else:
+                self.ui.signal_modifica_cliente.setText("SBAGLIATO")
+
+    def cerca_per_nome_elimina_cliente(self):
+        nome_cliente = self.ui.bt_eliminare_cerca_cliente.text().upper()
+        nome_cliente = str("'" + nome_cliente + "'")
+        cliente = self.basedidati.cerca_cliente(nome_cliente)
+        print(cliente)
+        self.ui.tabella_elimina_cliente.setRowCount(len(cliente))
+
+        if len(cliente) == 0:
+            self.ui.signal_elimina_cliente.setText(' Non Esiste')       
+        else:
+            self.ui.signal_elimina_cliente.setText('Cliente Selezionato')
+        tablerow = 0
+        for row in cliente:
+            self.cliente_da_eliminare = row[1]
+            self.ui.tabella_elimina_cliente.setItem(tablerow,0,QtWidgets.QTableWidgetItem(str(row[0])))
+            self.ui.tabella_elimina_cliente.setItem(tablerow,1,QtWidgets.QTableWidgetItem(str(row[1])))
+            self.ui.tabella_elimina_cliente.setItem(tablerow,2,QtWidgets.QTableWidgetItem(str(row[2])))
+            self.ui.tabella_elimina_cliente.setItem(tablerow,3,QtWidgets.QTableWidgetItem(str(row[3])))
+            self.ui.tabella_elimina_cliente.setItem(tablerow,4,QtWidgets.QTableWidgetItem(str(row[4])))
+            self.ui.tabella_elimina_cliente.setItem(tablerow,5,QtWidgets.QTableWidgetItem(str(row[5])))
+            tablerow +=1
+
+    def elimina_clienti(self):
+        self.row_flag = self.ui.tabella_elimina_cliente.currentRow()
+        if self.row_flag == 0:
+            self.ui.tabella_elimina_cliente.removeRow(0)
+            self.basedidati.elimina_clienti("'" + self.cliente_da_eliminare + "'")
+            self.ui.signal_elimina_cliente.setText('Cliente Eliminato')
+            self.ui.bt_eliminare_cerca_cliente.setText('')
+
+    def cerca_per_nome_prodotto_acquista(self):
+        codice_prodotto = self.ui.mod_cerca_prodotto_acquista.text().upper() 
+        codice_prodotto = str("'" + codice_prodotto + "'")
+        self.prodotto = self.basedidati.cerca_prodotto(codice_prodotto)
+        if len(self.prodotto) !=0:
+            self.ui.label_codiceProdotto_acquista.setText(str(self.prodotto[0][0]))
+            self.ui.label_nomeProdotto_acquista.setText(str(self.prodotto[0][1]))
+            self.ui.label_acqiendaProdotto_acquista.setText(str(self.prodotto[0][2]))
+            self.ui.label_prezzoProdotto_acquista.setText(str(self.prodotto[0][3]))
+            self.ui.label_scorteProdotto_acquista.setText(str(self.prodotto[0][4]))
+        else:
+            self.ui.signal_registra_acquista.setText("NON ESISTE")
+
+    def cerca_per_nome_cliente_acquista(self):
+        codiceFiscale_cliente = self.ui.mod_cerca_cliente_acquista.text().upper() 
+        codiceFiscale_cliente = str("'" + codiceFiscale_cliente + "'")
+        self.cliente = self.basedidati.cerca_cliente(codiceFiscale_cliente)
+        if len(self.cliente) !=0:
+            self.ui.label_codiceFiscaleCliente_acquista.setText(str(self.cliente[0][0]))
+            self.ui.label_nomeCliente_acquista.setText(str(self.cliente[0][1]))
+            self.ui.label_cognomeCliente_acquista.setText(str(self.cliente[0][2]))
+            self.ui.label_dataDiNascitaCliente_acquista.setText(str(self.cliente[0][3]))
+            self.ui.label_prodottiAcquistatiCliente_acquista.setText(str(self.cliente[0][5]))
+        else:
+            self.ui.signal_registra_acquista.setText("NON ESISTE")
+
+    def registra_acquisto(self):
+        nuove_scorte = int(self.ui.label_scorteProdotto_acquista.text())
+        scorteVenduteOra = int(self.ui.spinBox_quantita_acquista.text())
+        codice = self.ui.label_codiceProdotto_acquista.text()
+        nuove_scorte -= scorteVenduteOra
+        modScorte = self.basedidati.togli_scorte(codice, nuove_scorte)
+        nuovi_prodottiAcquistati = int(self.ui.label_prodottiAcquistatiCliente_acquista.text())
+        nuovi_prodottiAcquistati += scorteVenduteOra
+        codiceFiscale = self.ui.label_codiceFiscaleCliente_acquista.text()
+        modProdottiAcquistati = self.basedidati.aggiungi_prodotti(codiceFiscale, nuovi_prodottiAcquistati)
+        
+        if modScorte == 1 and modProdottiAcquistati == 1:
+            self.ui.signal_registra_acquista.setText("ACQUISTATO")                
+            self.ui.label_codiceProdotto_acquista.clear()
+            self.ui.label_nomeProdotto_acquista.clear()
+            self.ui.label_acqiendaProdotto_acquista.clear()
+            self.ui.label_prezzoProdotto_acquista.clear()                
+            self.ui.label_scorteProdotto_acquista.clear()
+            self.ui.mod_cerca_prodotto_acquista.setText('')
+            self.ui.label_codiceFiscaleCliente_acquista.clear()
+            self.ui.label_nomeCliente_acquista.clear()
+            self.ui.label_cognomeCliente_acquista.clear()
+            self.ui.label_dataDiNascitaCliente_acquista.clear()
+            self.ui.label_prodottiAcquistatiCliente_acquista.clear()
+            self.ui.mod_cerca_cliente_acquista.setText('')
+        elif modScorte == 0 and modProdottiAcquistati == 0:
+            self.ui.signal_registra_acquista.setText("ERRORE")
+        else:
+            self.ui.signal_registra_acquista.setText("SBAGLIATO")
 
 if __name__ == "__main__":
      app = QApplication(sys.argv)

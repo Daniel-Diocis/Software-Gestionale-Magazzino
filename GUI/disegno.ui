@@ -137,7 +137,7 @@ color: rgb(0, 206, 151);</string>
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>imagenes/menu.svg</normaloff>imagenes/menu.svg</iconset>
+              <normaloff>../immagini/menu.svg</normaloff>../immagini/menu.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -335,7 +335,7 @@ font: 77 10pt &quot;Arial Black&quot;;
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>imagenes/base datos.svg</normaloff>imagenes/base datos.svg</iconset>
+                 <normaloff>../immagini/database.svg</normaloff>../immagini/database.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -358,7 +358,7 @@ font: 77 10pt &quot;Arial Black&quot;;
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>imagenes/registrar.svg</normaloff>imagenes/registrar.svg</iconset>
+                 <normaloff>../immagini/registrare.svg</normaloff>../immagini/registrare.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -381,7 +381,7 @@ font: 77 10pt &quot;Arial Black&quot;;
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>imagenes/actualizar.svg</normaloff>imagenes/actualizar.svg</iconset>
+                 <normaloff>../immagini/modifiche.svg</normaloff>../immagini/modifiche.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -410,7 +410,7 @@ font: 77 10pt &quot;Arial Black&quot;;
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>imagenes/eliminar.svg</normaloff>imagenes/eliminar.svg</iconset>
+                 <normaloff>../immagini/eliminare.svg</normaloff>../immagini/eliminare.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -439,7 +439,7 @@ font: 77 10pt &quot;Arial Black&quot;;
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>imagenes/ajustes.svg</normaloff>imagenes/ajustes.svg</iconset>
+                 <normaloff>../immagini/cliente.svg</normaloff>../immagini/cliente.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -462,7 +462,7 @@ font: 77 10pt &quot;Arial Black&quot;;
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>imagenes/ajustes.svg</normaloff>imagenes/ajustes.svg</iconset>
+                 <normaloff>../immagini/azienda.svg</normaloff>../immagini/azienda.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -536,6 +536,13 @@ QTableWidget QTableCornerButton::section {
     background-color:  rgb(0, 0, 0);
     border: 1px solid  rgb(0, 206, 151);
 }
+
+QSpinBox {
+	font: 87 12pt &quot;Arial Black&quot;;
+	background-color:#000000ff;
+	color: rgb(0, 206, 151);
+	border:0px solid #14C8DC;
+}
 </string>
             </property>
             <property name="frameShape">
@@ -560,12 +567,12 @@ QTableWidget QTableCornerButton::section {
              <item>
               <widget class="QStackedWidget" name="stackedWidget">
                <property name="currentIndex">
-                <number>11</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="page_database">
-                <layout class="QVBoxLayout" name="verticalLayout_9">
+                <layout class="QHBoxLayout" name="horizontalLayout_11">
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_4">
+                  <layout class="QVBoxLayout" name="verticalLayout_18">
                    <item>
                     <widget class="QLabel" name="label_3">
                      <property name="text">
@@ -619,6 +626,19 @@ QTableWidget QTableCornerButton::section {
                         </size>
                        </property>
                       </spacer>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bt_acquista">
+                       <property name="minimumSize">
+                        <size>
+                         <width>120</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>ACQUISTA</string>
+                       </property>
+                      </widget>
                      </item>
                      <item>
                       <widget class="QPushButton" name="bt_aggiorna">
@@ -1138,115 +1158,119 @@ QTableWidget QTableCornerButton::section {
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_15">
                  <item>
-                  <widget class="QLabel" name="label_19">
-                   <property name="text">
-                    <string>CLIENTI</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QTableWidget" name="tabella_clienti">
-                   <column>
-                    <property name="text">
-                     <string>COD FISCALE</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>NOME</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>COGNOME</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>TELEFONO</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>D NASCITA</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>P ACQUISTATI</string>
-                    </property>
-                   </column>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_12">
+                  <layout class="QVBoxLayout" name="verticalLayout_14">
                    <item>
-                    <spacer name="horizontalSpacer_10">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>13</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="bt_elimina_cliente">
-                     <property name="minimumSize">
-                      <size>
-                       <width>120</width>
-                       <height>30</height>
-                      </size>
-                     </property>
+                    <widget class="QLabel" name="label_19">
                      <property name="text">
-                      <string>ELIMINA</string>
+                      <string>CLIENTI</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="bt_modifica_cliente">
-                     <property name="minimumSize">
-                      <size>
-                       <width>120</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>MODIFICA</string>
-                     </property>
+                    <widget class="QTableWidget" name="tabella_clienti">
+                     <column>
+                      <property name="text">
+                       <string>COD FISCALE</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>NOME</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>COGNOME</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>TELEFONO</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>D NASCITA</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>P ACQUISTATI</string>
+                      </property>
+                     </column>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="bt_aggiungi_cliente">
-                     <property name="minimumSize">
-                      <size>
-                       <width>120</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>AGGIUNGI</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="bt_aggiorna_clienti">
-                     <property name="minimumSize">
-                      <size>
-                       <width>120</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>AGGIORNA</string>
-                     </property>
-                    </widget>
+                    <layout class="QHBoxLayout" name="horizontalLayout_12">
+                     <item>
+                      <spacer name="horizontalSpacer_10">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>13</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bt_elimina_cliente">
+                       <property name="minimumSize">
+                        <size>
+                         <width>120</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>ELIMINA</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bt_modifica_cliente">
+                       <property name="minimumSize">
+                        <size>
+                         <width>120</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>MODIFICA</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bt_aggiungi_cliente">
+                       <property name="minimumSize">
+                        <size>
+                         <width>120</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>AGGIUNGI</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bt_aggiorna_clienti">
+                       <property name="minimumSize">
+                        <size>
+                         <width>120</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>AGGIORNA</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
                    </item>
                   </layout>
                  </item>
@@ -1458,7 +1482,7 @@ QTableWidget QTableCornerButton::section {
                    <item>
                     <widget class="QLabel" name="label_46">
                      <property name="text">
-                      <string> NOME DEL PRODOTTO :</string>
+                      <string> NOME DEL CLIENTE:</string>
                      </property>
                     </widget>
                    </item>
@@ -1751,112 +1775,116 @@ QTableWidget QTableCornerButton::section {
                 </layout>
                </widget>
                <widget class="QWidget" name="page_aziende">
-                <layout class="QVBoxLayout" name="verticalLayout_30">
+                <layout class="QVBoxLayout" name="verticalLayout_17">
                  <item>
-                  <widget class="QLabel" name="label_54">
-                   <property name="text">
-                    <string>AZIENDE</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QTableWidget" name="tabella_aziende">
-                   <column>
-                    <property name="text">
-                     <string>CODICE</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>NOME</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>TIPOLOGIA</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>LOCALIZZAZIONE</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>RAGIONE SOCIALE</string>
-                    </property>
-                   </column>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_23">
+                  <layout class="QVBoxLayout" name="verticalLayout_16">
                    <item>
-                    <spacer name="horizontalSpacer_18">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>13</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="bt_elimina_azienda">
-                     <property name="minimumSize">
-                      <size>
-                       <width>120</width>
-                       <height>30</height>
-                      </size>
-                     </property>
+                    <widget class="QLabel" name="label_54">
                      <property name="text">
-                      <string>ELIMINA</string>
+                      <string>AZIENDE</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="bt_modifica_azienda">
-                     <property name="minimumSize">
-                      <size>
-                       <width>120</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>MODIFICA</string>
-                     </property>
+                    <widget class="QTableWidget" name="tabella_aziende">
+                     <column>
+                      <property name="text">
+                       <string>CODICE</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>NOME</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>TIPOLOGIA</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>LOCALIZZAZIONE</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>RAGIONE SOCIALE</string>
+                      </property>
+                     </column>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="bt_aggiungi_azienda">
-                     <property name="minimumSize">
-                      <size>
-                       <width>120</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>AGGIUNGI</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="bt_aggiorna_aziende">
-                     <property name="minimumSize">
-                      <size>
-                       <width>120</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>AGGIORNA</string>
-                     </property>
-                    </widget>
+                    <layout class="QHBoxLayout" name="horizontalLayout_23">
+                     <item>
+                      <spacer name="horizontalSpacer_18">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>13</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bt_elimina_azienda">
+                       <property name="minimumSize">
+                        <size>
+                         <width>120</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>ELIMINA</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bt_modifica_azienda">
+                       <property name="minimumSize">
+                        <size>
+                         <width>120</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>MODIFICA</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bt_aggiungi_azienda">
+                       <property name="minimumSize">
+                        <size>
+                         <width>120</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>AGGIUNGI</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="bt_aggiorna_aziende">
+                       <property name="minimumSize">
+                        <size>
+                         <width>120</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>AGGIORNA</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
                    </item>
                   </layout>
                  </item>
@@ -2345,6 +2373,365 @@ QTableWidget QTableCornerButton::section {
                      </property>
                      <property name="text">
                       <string>ELIMINARE</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="page_acquista">
+                <layout class="QVBoxLayout" name="verticalLayout_41">
+                 <item>
+                  <widget class="QLabel" name="label_25">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>100</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>ACQUISTA PRODOTTO</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_35">
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_21">
+                     <item>
+                      <widget class="QLabel" name="label_18">
+                       <property name="text">
+                        <string> NOME DEL PRODOTTO :</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_13">
+                       <item>
+                        <widget class="QLineEdit" name="mod_cerca_prodotto_acquista">
+                         <property name="text">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="bt_mod_cerca_prodotto_acquista">
+                         <property name="minimumSize">
+                          <size>
+                           <width>100</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="text">
+                          <string>CERCA</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_14">
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_19">
+                         <property name="spacing">
+                          <number>30</number>
+                         </property>
+                         <item>
+                          <widget class="QLabel" name="label_20">
+                           <property name="text">
+                            <string>CODICE</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_21">
+                           <property name="text">
+                            <string>NOME</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_22">
+                           <property name="text">
+                            <string>AZIENDA</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_23">
+                           <property name="text">
+                            <string>PREZZO</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_24">
+                           <property name="text">
+                            <string>SCORTE</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_20">
+                         <property name="spacing">
+                          <number>30</number>
+                         </property>
+                         <item>
+                          <widget class="QLabel" name="label_codiceProdotto_acquista">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_nomeProdotto_acquista">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_acqiendaProdotto_acquista">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_prezzoProdotto_acquista">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_scorteProdotto_acquista">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_28">
+                     <item>
+                      <widget class="QLabel" name="label_26">
+                       <property name="text">
+                        <string> NOME DEL CLIENTE :</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_15">
+                       <item>
+                        <widget class="QLineEdit" name="mod_cerca_cliente_acquista">
+                         <property name="text">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="bt_mod_cerca_cliente_acquista">
+                         <property name="minimumSize">
+                          <size>
+                           <width>100</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="text">
+                          <string>CERCA</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_32">
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_30">
+                         <property name="spacing">
+                          <number>30</number>
+                         </property>
+                         <item>
+                          <widget class="QLabel" name="label_27">
+                           <property name="text">
+                            <string>CODICE FISCALE</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_28">
+                           <property name="text">
+                            <string>NOME</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_29">
+                           <property name="text">
+                            <string>COGNOME</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_30">
+                           <property name="text">
+                            <string>DATA DI NASCITA</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_31">
+                           <property name="text">
+                            <string>PRODOTTI ACQUI</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_40">
+                         <property name="spacing">
+                          <number>30</number>
+                         </property>
+                         <item>
+                          <widget class="QLabel" name="label_codiceFiscaleCliente_acquista">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_nomeCliente_acquista">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_cognomeCliente_acquista">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_dataDiNascitaCliente_acquista">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_prodottiAcquistatiCliente_acquista">
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_33">
+                   <item>
+                    <spacer name="horizontalSpacer_8">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_32">
+                     <property name="text">
+                      <string>QUANTITÀ:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QSpinBox" name="spinBox_quantita_acquista"/>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_9">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_34">
+                   <property name="spacing">
+                    <number>6</number>
+                   </property>
+                   <item>
+                    <widget class="QLabel" name="signal_registra_acquista">
+                     <property name="minimumSize">
+                      <size>
+                       <width>200</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_11">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="bt_acq_acquista">
+                     <property name="minimumSize">
+                      <size>
+                       <width>120</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>ACQUISTA</string>
                      </property>
                     </widget>
                    </item>
