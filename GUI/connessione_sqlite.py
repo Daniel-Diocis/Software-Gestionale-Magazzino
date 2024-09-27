@@ -107,3 +107,44 @@ class Comunicazione():
         self.connessione.commit()
         cursor.close()
         return a
+    
+    def inserisci_aziende(self, codice, nome, tipologia, localizzazione, ragioneSociale):
+        cursor = self.connessione.cursor()
+        bd = '''INSERT INTO tabella_aziende (CODICE, NOME, TIPOLOGIA, LOCALIZZAZIONE, RAGIONE_SOCIALE)
+        VALUES('{}','{}','{}','{}','{}')'''.format(codice, nome, tipologia, localizzazione, ragioneSociale)
+        cursor.execute(bd)
+        self.connessione.commit()
+        cursor.close()
+
+    def mostra_aziende(self):
+        cursor = self.connessione.cursor()
+        bd = "SELECT * FROM tabella_aziende"
+        cursor.execute(bd)
+        registro = cursor.fetchall()
+        return registro
+    
+    def cerca_azienda(self, nome):
+        cursor = self.connessione.cursor()
+        bd = '''SELECT * FROM tabella_aziende WHERE NOME = {}'''.format(nome)
+        cursor.execute(bd)
+        nomeX = cursor.fetchall()
+        cursor.close()
+        return nomeX
+    
+    def elimina_aziende(self, nome):
+        cursor = self.connessione.cursor()
+        bd = '''DELETE FROM tabella_aziende WHERE NOME = {}'''.format(nome)
+        cursor.execute(bd)
+        self.connessione.commit()
+        cursor.close()
+
+    def modifica_aziende(self, codice, nome, tipologia, localizzazione, ragioneSociale):
+        cursor = self.connessione.cursor()
+        bd = '''UPDATE tabella_aziende SET CODICE ='{}', NOME = '{}' , TIPOLOGIA = '{}', LOCALIZZAZIONE = '{}', RAGIONE_SOCIALE = '{}'
+        WHERE CODICE = '{}' '''.format(codice, nome, tipologia, localizzazione, ragioneSociale, codice)
+        print(bd)
+        cursor.execute(bd)
+        a = cursor.rowcount
+        self.connessione.commit()
+        cursor.close()
+        return a

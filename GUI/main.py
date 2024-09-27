@@ -31,6 +31,13 @@ class FinestraPrincipale(QMainWindow):
         self.ui.bt_mod_cerca_cliente.clicked.connect(self.cerca_per_nome_modifica_cliente)
         self.ui.bt_eliminare_cerca_cliente.clicked.connect(self.cerca_per_nome_elimina_cliente)
 
+        self.ui.bt_aggiorna_aziende.clicked.connect(self.mostra_aziende)
+        self.ui.bt_reg_aggiungere_azienda.clicked.connect(self.registra_aziende)
+        self.ui.bt_eli_eliminare_azienda.clicked.connect(self.elimina_aziende)
+        self.ui.bt_mod_modifica_azienda.clicked.connect(self.modifica_aziende)
+        self.ui.bt_mod_cerca_azienda.clicked.connect(self.cerca_per_nome_modifica_azienda)
+        self.ui.bt_eliminare_azienda.clicked.connect(self.cerca_per_nome_elimina_azienda)
+
         self.ui.bt_mod_cerca_prodotto_acquista.clicked.connect(self.cerca_per_nome_prodotto_acquista)
         self.ui.bt_mod_cerca_cliente_acquista.clicked.connect(self.cerca_per_nome_cliente_acquista)
         self.ui.bt_acq_acquista.clicked.connect(self.registra_acquisto)
@@ -59,11 +66,14 @@ class FinestraPrincipale(QMainWindow):
         self.ui.bt_modifica.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_modifica))
         self.ui.bt_elimina.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_elimina))
         self.ui.bt_clienti.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_cliente))
-        self.ui.bt_aziende.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_aziende))
         self.ui.bt_aggiungi_cliente.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_aggiungi_cliente))
         self.ui.bt_modifica_cliente.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_modifica_cliente))
         self.ui.bt_elimina_cliente.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_elimina_cliente))
         self.ui.bt_acquista.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_acquista))
+        self.ui.bt_aziende.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_aziende))
+        self.ui.bt_aggiungi_azienda.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_aggiungi_azienda))
+        self.ui.bt_modifica_azienda.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_modifica_azienda))
+        self.ui.bt_elimina_azienda.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_elimina_azienda))
 
         # Larghezza della colonna adattabile
         self.ui.tabella_elimina.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -260,7 +270,7 @@ class FinestraPrincipale(QMainWindow):
             self.ui.reg_telefono_cliente.clear()
             self.ui.reg_dataDiNascitaCliente.clear()
         else:
-            self.ui.signal_registra.setText('Ci sono spazi vuoti')
+            self.ui.signal_registra_cliente.setText('Ci sono spazi vuoti')
 
     def cerca_per_nome_modifica_cliente(self):
         codiceFiscale_cliente = self.ui.mod_cerca_cliente.text().upper() 
@@ -284,7 +294,7 @@ class FinestraPrincipale(QMainWindow):
             dataDiNascita = self.ui.mod_dataDiNascita_cliente.text().upper()
             mod = self.basedidati.modifica_clienti(codiceFiscale, nome, cognome, telefono, dataDiNascita)
             if mod == 1:
-                self.ui.signal_modifica.setText("MODIFICATO")                
+                self.ui.signal_modifica_cliente.setText("MODIFICATO")                
                 self.ui.mod_codFiscale_cliente.clear()
                 self.ui.mod_nome_cliente.clear()
                 self.ui.mod_cognome_cliente.clear()
@@ -297,7 +307,7 @@ class FinestraPrincipale(QMainWindow):
                 self.ui.signal_modifica_cliente.setText("SBAGLIATO")
 
     def cerca_per_nome_elimina_cliente(self):
-        nome_cliente = self.ui.bt_eliminare_cerca_cliente.text().upper()
+        nome_cliente = self.ui.eliminare_cerca_2.text().upper()
         nome_cliente = str("'" + nome_cliente + "'")
         cliente = self.basedidati.cerca_cliente(nome_cliente)
         print(cliente)
@@ -381,6 +391,102 @@ class FinestraPrincipale(QMainWindow):
             self.ui.signal_registra_acquista.setText("ERRORE")
         else:
             self.ui.signal_registra_acquista.setText("SBAGLIATO")
+
+    def mostra_aziende(self):  
+        aziende = self.basedidati.mostra_aziende()
+        i = len(aziende)
+        self.ui.tabella_aziende.setRowCount(i)
+        tablerow = 0
+        for row in aziende:
+            self.Id = row[0]
+            self.ui.tabella_aziende.setItem(tablerow,0,QtWidgets.QTableWidgetItem(str(row[0])))
+            self.ui.tabella_aziende.setItem(tablerow,1,QtWidgets.QTableWidgetItem(str(row[1])))
+            self.ui.tabella_aziende.setItem(tablerow,2,QtWidgets.QTableWidgetItem(str(row[2])))
+            self.ui.tabella_aziende.setItem(tablerow,3,QtWidgets.QTableWidgetItem(str(row[3])))
+            self.ui.tabella_aziende.setItem(tablerow,4,QtWidgets.QTableWidgetItem(str(row[4])))
+            tablerow +=1
+            self.ui.signal_modifica_azienda.setText("")
+            self.ui.signal_registra_azienda.setText("")
+            self.ui.signal_elimina_azienda.setText("")
+
+    def registra_aziende(self):
+        codice = self.ui.reg_codice_azienda.text().upper()  
+        nome = self.ui.reg_nome_azienda.text().upper() 
+        tipologia = self.ui.reg_tipologia_azienda.text().upper() 
+        localizzazione = self.ui.reg_localizzazione_azienda.text().upper() 
+        ragioneSociale = self.ui.reg_ragioneSociale_azienda.text().upper()
+        if codice != '' and nome != '' and tipologia != '' and localizzazione != '' and ragioneSociale != '':
+            self.basedidati.inserisci_aziende(codice, nome, tipologia, localizzazione, ragioneSociale)
+            self.ui.signal_registra_azienda.setText('Azienda Registrata')
+            self.ui.reg_codice_azienda.clear()
+            self.ui.reg_nome_azienda.clear()
+            self.ui.reg_tipologia_azienda.clear()
+            self.ui.reg_localizzazione_azienda.clear()
+            self.ui.reg_ragioneSociale_azienda.clear()
+        else:
+            self.ui.signal_registra_azienda.setText('Ci sono spazi vuoti')
+
+    def cerca_per_nome_modifica_azienda(self):
+        codice_azienda = self.ui.mod_cerca_azienda.text().upper() 
+        codice_azienda = str("'" + codice_azienda + "'")
+        self.azienda = self.basedidati.cerca_azienda(codice_azienda)
+        if len(self.azienda) !=0:
+            self.ui.mod_codice_azienda.setText(str(self.azienda[0][0]))
+            self.ui.mod_nome_azienda.setText(str(self.azienda[0][1]))
+            self.ui.mod_tipologia_azienda.setText(str(self.azienda[0][2]))
+            self.ui.mod_localizzazione_azienda.setText(str(self.azienda[0][3]))
+            self.ui.mod_ragioneSociale_azienda.setText(str(self.azienda[0][4]))
+        else:
+            self.ui.signal_modifica_azienda.setText("NON ESISTE")
+
+    def modifica_aziende(self):
+        if self.azienda != '':
+            codice = self.ui.mod_codice_azienda.text().upper()  
+            nome = self.ui.mod_nome_azienda.text().upper() 
+            tipologia = self.ui.mod_tipologia_azienda.text().upper() 
+            localizzazione = self.ui.mod_localizzazione_azienda.text().upper() 
+            ragioneSociale = self.ui.mod_ragioneSociale_azienda.text().upper()
+            mod = self.basedidati.modifica_aziende(codice, nome, tipologia, localizzazione, ragioneSociale)
+            if mod == 1:
+                self.ui.signal_modifica_azienda.setText("MODIFICATO")                
+                self.ui.mod_codice_azienda.clear()
+                self.ui.mod_nome_azienda.clear()
+                self.ui.mod_tipologia_azienda.clear()
+                self.ui.mod_localizzazione_azienda.clear()                
+                self.ui.mod_ragioneSociale_azienda.clear()
+                self.ui.mod_cerca_azienda.setText('')
+            elif mod == 0:
+                self.ui.signal_modifica_azienda.setText("ERRORE")
+            else:
+                self.ui.signal_modifica_azienda.setText("SBAGLIATO")
+
+    def cerca_per_nome_elimina_azienda(self):
+        nome_azienda = self.ui.eliminare_cerca_azienda.text().upper()
+        nome_azienda = str("'" + nome_azienda + "'")
+        azienda = self.basedidati.cerca_azienda(nome_azienda)
+        self.ui.tabella_elimina_azienda.setRowCount(len(azienda))
+
+        if len(azienda) == 0:
+            self.ui.signal_elimina_azienda.setText(' Non Esiste')       
+        else:
+            self.ui.signal_elimina_azienda.setText('Azienda Selezionata')
+        tablerow = 0
+        for row in azienda:
+            self.azienda_da_eliminare = row[1]
+            self.ui.tabella_elimina_azienda.setItem(tablerow,0,QtWidgets.QTableWidgetItem(str(row[0])))
+            self.ui.tabella_elimina_azienda.setItem(tablerow,1,QtWidgets.QTableWidgetItem(str(row[1])))
+            self.ui.tabella_elimina_azienda.setItem(tablerow,2,QtWidgets.QTableWidgetItem(str(row[2])))
+            self.ui.tabella_elimina_azienda.setItem(tablerow,3,QtWidgets.QTableWidgetItem(str(row[3])))
+            self.ui.tabella_elimina_azienda.setItem(tablerow,4,QtWidgets.QTableWidgetItem(str(row[4])))
+            tablerow +=1
+
+    def elimina_aziende(self):
+        self.row_flag = self.ui.tabella_elimina_azienda.currentRow()
+        if self.row_flag == 0:
+            self.ui.tabella_elimina_azienda.removeRow(0)
+            self.basedidati.elimina_aziende("'" + self.azienda_da_eliminare + "'")
+            self.ui.signal_elimina_azienda.setText('Azienda Eliminata')
+            self.ui.bt_eli_eliminare_azienda.setText('')
 
 if __name__ == "__main__":
      app = QApplication(sys.argv)
