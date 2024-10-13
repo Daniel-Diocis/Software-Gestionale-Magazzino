@@ -21,26 +21,28 @@ class Comunicazione():
     
     def cerca_prodotto(self, nome_prodotto):
         cursor = self.connessione.cursor()
-        bd = '''SELECT * FROM tabella_dati WHERE NOME = {}'''.format(nome_prodotto)
-        cursor.execute(bd)
-        nomeX = cursor.fetchall()
+        bd = '''SELECT * FROM tabella_dati WHERE NOME = ?'''
+        cursor.execute(bd, (nome_prodotto,))  # Passa nome_prodotto come tupla
+        risultati = cursor.fetchall()  # Recupera tutti i risultati
         cursor.close()
-        return nomeX
+        return risultati
     
     def elimina_prodotti(self, nome):
         cursor = self.connessione.cursor()
-        bd = '''DELETE FROM tabella_dati WHERE NOME = {}'''.format(nome)
-        cursor.execute(bd)
+        bd = '''DELETE FROM tabella_dati WHERE NOME = ?'''
+        cursor.execute(bd, (nome,))  # Passa il nome come una tupla
         self.connessione.commit()
         cursor.close()
 
     def modifica_prodotti(self, codice, nome, azienda, prezzo, scorte):
         cursor = self.connessione.cursor()
-        bd = '''UPDATE tabella_dati SET CODICE ='{}', NOME = '{}' , AZIENDA = '{}', PREZZO = '{}', SCORTE = '{}'
-        WHERE CODICE = '{}' '''.format(codice, nome, azienda, prezzo, scorte, codice)
-        print(bd)
-        cursor.execute(bd)
-        a = cursor.rowcount
+        bd = '''UPDATE tabella_dati 
+                SET NOME = ?, AZIENDA = ?, PREZZO = ?, SCORTE = ? 
+                WHERE CODICE = ?'''
+        # Passa i valori come tupla
+        cursor.execute(bd, (nome, azienda, prezzo, scorte, codice))
+    
+        a = cursor.rowcount  # Ottieni il numero di righe modificate
         self.connessione.commit()
         cursor.close()
         return a
