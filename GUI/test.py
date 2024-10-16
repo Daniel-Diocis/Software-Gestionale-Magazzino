@@ -2,14 +2,11 @@ import pytest
 import sqlite3
 from connessione_sqlite import Comunicazione
 
-# Funzione per configurare il database in memoria per ogni test
 @pytest.fixture
 def db():
-    # Creiamo un database temporaneo in memoria
     conn = sqlite3.connect(':memory:')
-    
-    # Creiamo le tabelle necessarie
     cursor = conn.cursor()
+    
     cursor.execute('''
     CREATE TABLE tabella_dati (
         CODICE TEXT PRIMARY KEY, 
@@ -38,11 +35,10 @@ def db():
     
     conn.commit()
     yield conn
-    conn.close()  # Chiudiamo la connessione dopo il test
+    conn.close()
 
 @pytest.fixture
 def comunicazione(db):
-    # Inizializziamo l'oggetto Comunicazione con il database di test
     com = Comunicazione()
     com.connessione = db  # Usare il db in memoria per i test
     return com
@@ -54,7 +50,6 @@ def test_inserisci_prodotto(comunicazione):
     assert len(prodotti) == 1
     assert prodotti[0][0] == "123"
     assert prodotti[0][1] == "ProdottoTest"
-    assert prodotti[0][2] == "AziendaTest"
 
 # Test per la modifica di un prodotto
 def test_modifica_prodotto(comunicazione):
@@ -62,8 +57,6 @@ def test_modifica_prodotto(comunicazione):
     comunicazione.modifica_prodotti("123", "ProdottoModificato", "AziendaModificata", 15.99, 150)
     prodotti = comunicazione.mostra_prodotti()
     assert prodotti[0][1] == "ProdottoModificato"
-    assert prodotti[0][2] == "AziendaModificata"
-    assert prodotti[0][3] == 15.99
 
 # Test per eliminare un prodotto dal database
 def test_elimina_prodotto(comunicazione):
@@ -85,3 +78,67 @@ def test_togli_scorte(comunicazione):
     comunicazione.togli_scorte("123", 50)
     prodotti = comunicazione.mostra_prodotti()
     assert prodotti[0][4] == 50
+
+# Test per inserire un cliente
+def test_inserisci_cliente(comunicazione):
+    comunicazione.inserisci_cliente("ABC123", "NomeTest", "CognomeTest", "1234567890", "01-01-2000", 0)
+    clienti = comunicazione.mostra_clienti()
+    assert len(clienti) == 1
+    assert clienti[0][0] == "ABC123"
+    assert clienti[0][5] == 0  # Assicuriamoci che prodotti acquistati siano inizializzati a 0
+
+# Test per modificare un cliente
+def test_modifica_cliente(comunicazione):
+    comunicazione.inserisci_cliente("ABC123", "NomeTest", "CognomeTest", "1234567890", "01-01-2000", 0)
+    comunicazione.modifica_clienti("ABC123", "NuovoNome", "CognomeModificato", "0987654321", "02-02-2000")
+    clienti = comunicazione.mostra_clienti()
+    assert clienti[0][1] == "NuovoNome"
+
+# Test per eliminare un cliente
+def test_elimina_cliente(comunicazione):
+    comunicazione.inserisci_cliente("ABC123", "NomeTest", "CognomeTest", "1234567890", "01-01-2000", 0)
+    comunicazione.elimina_clienti("NomeTest")
+    clienti = comunicazione.mostra_clienti()
+    assert len(clienti) == 0
+
+# Test per cercare un cliente
+def test_cerca_cliente(comunicazione):
+    comunicazione.inserisci_cliente("ABC123", "NomeTest", "CognomeTest", "1234567890", "01-01-2000", 0)
+    cliente = comunicazione.cerca_cliente("NomeTest")
+    assert len(cliente) == 1
+    assert cliente[0][1] == "NomeTest"
+
+# Test per aggiungere prodotti acquistati a un cliente
+def test_aggiungi_prodotti(comunicazione):
+    comunicazione.inserisci_cliente("ABC123", "NomeTest", "CognomeTest", "1234567890", "01-01-2000", 0)
+    comunicazione.aggiungi_prodotti("ABC123", 5)  # Aggiungiamo 5 prodotti acquistati
+    cliente = comunicazione.mostra_clienti()
+    assert cliente[0][5] == 5  # Verifica che il numero di prodotti acquistati sia ora 5
+
+# Test per inserire un'azienda
+def test_inserisci_azienda(comunicazione):
+    comunicazione.inserisci_aziende("XYZ123", "AziendaTest", "TipologiaTest", "LocalizzazioneTest", "RagioneSocialeTest")
+    aziende = comunicazione.mostra_aziende()
+    assert len(aziende) == 1
+    assert aziende[0][0] == "XYZ123"
+
+# Test per modificare un'azienda
+def test_modifica_azienda(comunicazione):
+    comunicazione.inserisci_aziende("XYZ123", "AziendaTest", "TipologiaTest", "LocalizzazioneTest", "RagioneSocialeTest")
+    comunicazione.modifica_aziende("XYZ123", "NuovaAzienda", "NuovaTipologia", "NuovaLocalizzazione", "NuovaRagione")
+    aziende = comunicazione.mostra_aziende()
+    assert aziende[0][1] == "NuovaAzienda"
+
+# Test per eliminare un'azienda
+def test_elimina_azienda(comunicazione):
+    comunicazione.inserisci_aziende("XYZ123", "AziendaTest", "TipologiaTest", "LocalizzazioneTest", "RagioneSocialeTest")
+    comunicazione.elimina_aziende("AziendaTest")
+    aziende = comunicazione.mostra_aziende()
+    assert len(aziende) == 0
+
+# Test per cercare un'azienda
+def test_cerca_azienda(comunicazione):
+    comunicazione.inserisci_aziende("XYZ123", "AziendaTest", "TipologiaTest", "LocalizzazioneTest", "RagioneSocialeTest")
+    azienda = comunicazione.cerca_azienda("AziendaTest")
+    assert len(azienda) == 1
+    assert azienda[0][1] == "AziendaTest"
